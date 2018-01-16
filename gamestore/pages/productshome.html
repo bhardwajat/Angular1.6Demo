@@ -1,0 +1,26 @@
+<div ng-controller="ProductHomeController">
+    <div class="row">
+        <div class="col-xs-3">
+            <a class="btn btn-block btn-default btn-lg" ng-class="getActiveClass('All')" ng-click="selectCategory('All')">All</a>
+            <a ng-repeat="cat in products | orderBy:'category' | unique:'category'" class="btn btn-block btn-default btn-lg" ng-class="getActiveClass(cat)"
+                ng-click="selectCategory(cat)">{{cat}}</a>
+        </div>
+        <div class="panel panel-success col-xs-8">
+            <div class="panel-heading">
+                <title-directive></title-directive>
+            </div>
+            <div class="panel-body">
+                <div class="well" ng-repeat="p in products | orderBy:'name' | filter:filterFn:p">
+                    <!--<h3><strong>{{p.name}}</strong>
+                                <span class="pull-right label label-primary">{{p.price | currency}}
+                        </span>
+                            </h3>
+                            <span class="lead">{{p.description | limitString:256}}
+                        </span>
+                            <p><a class="review-link">Reviews {{p.comments.length}} ...</a></p>-->
+                    <product-directive product="p"></product-directive>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

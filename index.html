@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Angular Expressions and Directives</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <style>
+        body{
+            font-size: 26px;
+            margin: 0;
+            padding: 0;
+
+        }
+        .container{
+            margin: 0 auto;
+            width: 50%;
+        }
+    </style>
+</head>
+<body ng-app="" ng-init="person={'name': 'August', 'age':34};">
+    <div class="container">
+        <!--<div>
+            <h4>Let's Do Some Math</h4>
+            <p>5 + 5 = {{5 + 5}}</p>
+            <p>5 - 5 = {{5 - 5}}</p>
+            <p>5 * 5 = {{5 * 5}}</p>
+            <p>5 / 5 = {{5 / 5}}</p>
+
+            <p>Hello my name is {{person.name}}</p>
+             {{0 > 1}}
+        </div>
+
+        <div>
+            <h4>Directives</h4>
+            <ul>
+                <li ng-repeat="i in [1,2,3,4]">
+                    {{i}}
+                </li>
+            </ul>
+            <div ng-repeat="e in person">
+                <p>{{e}}</p>
+            </div>
+
+            <div ng-if="true">
+                <p>This should display</p>
+            </div>
+            <div ng-if="false">
+                <p>This shouldn't display</p>
+            </div>
+
+            <div ng-show="true">This will display</div>
+            <div ng-show="false">This will not display</div>-->
+
+            <div>
+                <h4>Data binding</h4>
+                <p ng-bind="person.name"></p>
+                <label for="">Name:</label><input type="text" ng-model="person.name"/>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

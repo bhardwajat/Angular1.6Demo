@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular-cookies.min.js" type="text/javascript"></script>
+    
+</head>
+<body>
+    <div ng-app="CookiesApp" ng-controller="BookController">
+        <p>Book = {{book}}</p>
+        <p>Last Book = {{lastBook || 'no book'}}</p>
+        <a href="./book.html">HOME</a>
+    </div>
+    <script>
+        angular.module("CookiesApp", ['ngCookies'])
+            .controller("BookController", function($scope, $cookies, $http){
+
+                $http.get("http://www.localhost.com:8085/fc/srv/json")
+                    .then(function(res){
+                        $scope.book = res.data
+                        console.log("hello");
+                        console.log($cookies.get("lastBook"));
+                    })
+            })
+    </script>
+</body>
+</html>

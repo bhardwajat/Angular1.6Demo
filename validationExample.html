@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>AngularJS validation example</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+</head>
+<body data-ng-app="TestApp">
+  <div data-ng-controller="MyCtrl as myctrlData">
+	
+	<form name="loginForm" data-ng-submit="myctrlData.login()" novalidate="novalidate">
+	  Username: <input type="text" name="enteredUsername" data-ng-model="myctrlData.user.username" required="required"/>
+				<span data-ng-show="loginForm.enteredUsername.$invalid && loginForm.enteredUsername.$touched" style="color: red;">Username is required</span><br/>
+	  Password: <input type="text" name="enteredPassword" data-ng-model="myctrlData.user.password" required="required"/>
+	  			<span data-ng-show="loginForm.enteredPassword.$invalid && loginForm.enteredPassword.$dirty" style="color: red;">Password is required</span><br/>
+	  			<input type="submit" value="Submit" data-ng-disabled="loginForm.$invalid">
+	</form>
+	
+	<table class="table table-hover table-responsive">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>Untouched</th>
+	      <th>Touched</th>
+	      <th>Dirty</th>
+	      <th>Pristine</th>
+	      <th>Invalid</th>
+	      <th>Valid</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>username</th>
+	      <td>{{loginForm.enteredUsername.$untouched}}</td>
+	      <td>{{loginForm.enteredUsername.$touched}}</td>
+	      <td>{{loginForm.enteredUsername.$dirty}}</td>
+	      <td>{{loginForm.enteredUsername.$pristine}}</td>
+	      <td>{{loginForm.enteredUsername.$invalid}}</td>
+	      <td>{{loginForm.enteredUsername.$valid}}</td>
+	    </tr>
+	  </tbody>
+	  <tbody>
+	    <tr>
+	      <th>password</th>
+	      <td data-ng-class="loginForm.enteredPassword.$untouched ? 'alert alert-success' : 'alert alert-danger'">{{loginForm.enteredPassword.$untouched}}</td>
+	      <td data-ng-class="loginForm.enteredPassword.$touched ? 'alert alert-success' : 'alert alert-danger'">{{loginForm.enteredPassword.$touched}}</td>
+	      <td data-ng-class="loginForm.enteredPassword.$dirty ? 'alert alert-success' : 'alert alert-danger'">{{loginForm.enteredPassword.$dirty}}</td>
+	      <td data-ng-class="loginForm.enteredPassword.$pristine ? 'alert alert-success' : 'alert alert-danger'">{{loginForm.enteredPassword.$pristine}}</td>
+	      <td data-ng-class="loginForm.enteredPassword.$invalid ? 'alert alert-success' : 'alert alert-danger'">{{loginForm.enteredPassword.$invalid}}</td>
+	      <td data-ng-class="loginForm.enteredPassword.$valid ? 'alert alert-success' : 'alert alert-danger'">{{loginForm.enteredPassword.$valid}}</td>
+	    </tr>
+	  </tbody>
+	  <tbody>
+	    <tr>
+	      <th>form</th>
+	      <td>{{loginForm.$untouched}}</td>
+	      <td>{{loginForm.$touched}}</td>
+	      <td>{{loginForm.$dirty}}</td>
+	      <td>{{loginForm.$pristine}}</td>
+	      <td>{{loginForm.$invalid}}</td>
+	      <td>{{loginForm.$valid}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+    
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script type="text/javascript">
+  angular.module("TestApp",[]);
+  
+  angular.module("TestApp")
+    .controller("MyCtrl", function(){
+    	
+    	var someData = this;
+    	
+    	someData.user = {};
+    	
+    	someData.login = function(){
+    		alert(someData.user.username + " - " + someData.user.password);
+    		
+    	}
+    });
+    
+  
+</script>
+</body>
+</html>

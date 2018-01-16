@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <style>
+        body {
+            font-size: 26px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 75%;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        ul li {
+            margin-top: 25px;
+        }
+
+        .selected {
+            background-color: blueviolet;
+        }
+
+        table {
+            margin-top: 10px;
+        }
+
+        thead>tr>td {
+            text-align: center;
+            padding: 10px;
+        }
+
+        td {
+            padding: 0px;
+        }
+
+        td>input[type="checkbox"] {
+            float: right;
+        }
+
+        .done {
+            background-color: aquamarine;
+        }
+
+        .delete {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        td:nth-child(1) {
+            min-width: 250px;
+        }
+
+        input[type="number"] {
+            width: 3em;
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="TodoApp">
+        <div ng-controller="TodoListCtrl" ng-init="sortTasks()">
+            <h3>{{title}}</h3>
+            <div>
+                <label for="">New Task</label>
+                <input type="text" ng-model="newTask" />
+                <button ng-click="addTask()">Add</button>
+            </div>
+            <ul>
+                <div ng-if="!tasks.length">
+                    <p>There are no tasks to display</p>
+                </div>
+                <div ng-if="tasks.length">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Task</td>
+                                <td>Done</td>
+                                <td>Priority</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--<tr ng-repeat="t in tasks" ng-class="{selected: getSelectedClass(t), done: getDoneClass(t)}" ng-click="selectTask(t)">
+                                <td class="task-name">
+                                    <li>{{t.name}}</li>
+                                </td>
+                                <td><input type="checkbox" ng-model="t.done" /></td>
+                                <td><input type="number" ng-model="t.prio" ng-blur="sortTasks(sortOrder)" ng-keypress="($event.keyCode == 13) ? sortTasks(sortOrder):null"></td>
+                                <td class="delete" ng-click="delete(t)">X</td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        angular.module("TodoApp", []); //this creates the module and returns it
+        var app = angular.module("TodoApp"); //this just returns the module
+
+        app.controller("TodoListCtrl", function ($scope) {
+            $scope.title = "My Todo List";
+            $scope.sortOrder = "asc";
+            $scope.tasks = [
+                {
+                    "name": "Walk the Dog",
+                    "done": false,
+                    "prio": 10
+                },
+                {
+                    "name": "Mow the lawn",
+                    "done": false,
+                    "prio": 2
+                },
+                {
+                    "name": "Take over the world",
+                    "done": true,
+                    "prio": 11
+                }
+            ];
+            $scope.newTask = "";
+            $scope.selectedTask = "";
+
+            $scope.addTask = function () {
+                var p = Math.max.apply(Math, $scope.tasks.map(function (t) {
+                    return t.prio;
+                })) + 1;
+                if ($scope.newTask) {
+                    var t = {
+                        "name": $scope.newTask,
+                        "done": false,
+                        "prio": p
+                    }
+                    $scope.tasks.push(t);
+                    $scope.newTask = "";
+                }
+            }
+
+            $scope.getSelectedClass = function (task) {
+                return (task == $scope.selectedTask) ? "selected" : "";
+            }
+
+            $scope.getDoneClass = function (task) {
+                return (task && task.done) ? "done" : "";
+            }
+
+            $scope.selectTask = function (task) {
+                if (task) {
+                    $scope.selectedTask = task;
+                }
+            }
+
+            $scope.delete = function (task) {
+                if (task) {
+                    $scope.tasks.splice($scope.tasks.indexOf(task), 1);
+                }
+            }
+
+            $scope.sortTasks = function (order) {
+                if (!order) {
+                    order = "asc";
+                }
+                $scope.tasks.sort(function (a, b) {
+                    if (a.prio < b.prio) {
+                        return (order == "asc") ? -1 : 1;
+                    } else if (a.prio > b.prio) {
+                        return (order == "asc") ? 1 : -1;
+                    }
+                    return 0;
+                })
+            }
+
+        });
+    </script>
+</body>
+
+</html>

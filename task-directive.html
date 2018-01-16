@@ -1,0 +1,6 @@
+<td class="task-name">
+    <li>{{taskName}}</li>
+</td>
+<td><input type="checkbox" ng-model="taskComplete" /></td>
+<td><input type="number" ng-model="taskPriority" ng-blur="sortTasks(sortOrder)" ng-keypress="($event.keyCode == 13) ? sortTasks(sortOrder):null"></td>
+<td class="delete" ng-click="delete(t)">X</td>

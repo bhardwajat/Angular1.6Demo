@@ -1,0 +1,7 @@
+<h3><strong><a ui-sref="product({pid:prod.id})">{{prod.name}}</a></strong>
+    <span class="pull-right label label-primary">{{prod.price | currency}}
+                        </span>
+</h3>
+<span class="lead">{{prod.description | limitString:256}}
+                        </span>
+<p><a class="review-link">Reviews {{prod.comments.length}} ...</a></p>

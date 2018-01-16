@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js" type="text/javascript"></script>
+    <title>My Gaming Store</title>
+
+    <style>
+        .prodActive {
+            background-color: #337ab7 !important;
+        }
+
+        p>.review-link {
+            position: relative;
+            top: 10%;
+            cursor: pointer;
+        }
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        .row {
+            margin-bottom: 50px !important;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" ng-app="GameStoreApp">
+        <div class="row">
+            <h1>Welcome to my Game Store</h1>
+            <small class="text-muted">We are way better than that other store</small>
+        </div>
+        <div ng-controller="ProductHomeController">
+            <div class="row">
+                <div class="col-xs-3">
+                    <a class="btn btn-block btn-default btn-lg" ng-class="getActiveClass('All')" ng-click="selectCategory('All')">All</a>
+                    <a ng-repeat="cat in products | orderBy:'category' | unique:'category'" class="btn btn-block btn-default btn-lg" ng-class="getActiveClass(cat)"
+                        ng-click="selectCategory(cat)">{{cat}}</a>
+                </div>
+                <div class="panel panel-success col-xs-8">
+                    <div class="panel-heading">
+                        <title-directive></title-directive>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well" ng-repeat="p in products | orderBy:'name' | filter:filterFn:p">
+                            <!--<h3><strong>{{p.name}}</strong>
+                                <span class="pull-right label label-primary">{{p.price | currency}}
+                        </span>
+                            </h3>
+                            <span class="lead">{{p.description | limitString:256}}
+                        </span>
+                            <p><a class="review-link">Reviews {{p.comments.length}} ...</a></p>-->
+                            <product-directive product="p"></product-directive>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
